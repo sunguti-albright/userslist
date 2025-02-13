@@ -1,1 +1,14 @@
-<p>userslist works!</p>
+
+
+<div class="container">
+ 
+ <h4 class="header">View and Search for Users</h4>
+    <input type="text" [(ngModel)]="filterBy" placeholder="Search by name" (keyup)="filter()">
+    <div class="users-grid">
+      <div *ngFor="let user of filteredUsers" class="card">
+        <h2>{{ user.name }}</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+      </div>
+    </div>
+</div>
