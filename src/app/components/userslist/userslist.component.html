@@ -1,7 +1,7 @@
 
 
 <div class="container">
- 
+
  <h4 class="header">View and Search for Users</h4>
     <input type="text" [(ngModel)]="filterBy" placeholder="Search by name" (keyup)="filter()">
     <div class="users-grid">
@@ -11,4 +11,16 @@
         <p><strong>Phone:</strong> {{ user.phone }}</p>
       </div>
     </div>
+       <!-- Loader -->
+   <div *ngIf="isLoading" class="loader">Loading...</div>
+
+
+   <div *ngIf="fetchError" class="error-message">
+     Failed to fetch users. Please try again later.
+   </div>
+ 
+<!--display error message - if no user on search -->
+   <div *ngIf="!isLoading && !fetchError && filteredUsers.length === 0" class="no-users-found">
+     No such user found.
+   </div>
 </div>

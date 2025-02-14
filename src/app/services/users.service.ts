@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,11 @@ export class UsersService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
-    return this.http.get<any>(this.usersUrl);
+    return this.http.get<any>(this.usersUrl).pipe(
+      catchError((error:HttpErrorResponse)=>{
+        console.error('API Error', error.message);
+        return throwError(()=>new Error('Failed to fetch users. Please try again'))
+      })
+    );
   }
 }
